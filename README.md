@@ -205,3 +205,9 @@ the timing of GC or navigation
 in some cases.
 Given that it is already effectively exposed,
 this accepts that and provides an ergonomic solution.
+
+## Alternatives considered
+
+TODO(fergald): extract the other proposals from the issue.
+I believe they are all trying to avoid exposing information
+that is already exposed .
