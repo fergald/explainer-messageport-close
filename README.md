@@ -1,5 +1,10 @@
 # MessagePort close explainer
 
+## Metadata
+
+**Author**: [Fergal Daly](mailto:fergal@chromium.org)
+**Status**: Draft
+
 ## What is this?
 
 This is a proposal to add a `close` event
