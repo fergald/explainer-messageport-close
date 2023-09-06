@@ -12,6 +12,23 @@ which fires when a `MessagePort`'s entangled port is closed
 or becomes unreferenced
 (e.g. it was owned by a process that has crashed).
 
+### Problem to be addressed
+
+There is no timely and reliable signal for when
+a `MessagePort` has become unusable.
+This makes it difficult to free resources
+associated with ports.
+The best that can be achieved is
+timeliness in many cases
+by reacting to lifecycle state changes
+and reliability in the remaining cases
+by depending on GC via `WeakRef`s.
+
+By using all of these,
+a comprehensive solution is actually possible
+but it is unergonomic and
+it does not seem to be well known.
+
 ## Background
 
 [This issue](https://github.com/whatwg/html/issues/1766) has a long discussion of the problem and potential solutions.
@@ -130,23 +147,6 @@ last reference was dropped
 or if the owning document has been destroyed.
 Is it simply that exposing GC
 is something to be avoided when possible?
-
-## Problem to be solved
-
-There is no timely and reliable signal for when
-a `MessagePort` has become unusable.
-This makes it difficult to free resources
-associated with ports.
-The best that can be achieved is
-timeliness in many cases
-by reacting to lifecycle state changes
-and reliability in the remaining cases
-by depending on GC via `WeakRef`s.
-
-By using all of these,
-a comprehensive solution is actually possible
-but it is unergonomic and
-it does not seem to be well known.
 
 ## Proposal
 
