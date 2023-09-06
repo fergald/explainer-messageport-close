@@ -92,25 +92,26 @@ and listening to the `close` event,
 it is possible to find out when that document has been destroyed.
 This can be done with without the cooperation of the document in question.
 
-Given that this information is already available
-through the use of `WeakRef`s,
-any concern here can only be about the timing
+**This information is already available**
+through the use of `WeakRef`s.
+The concern here can only be about the *timing*
 of this information.
+There would not be any new capability granted
+by allowing delivering this event *eventually*.
+
 Right now a page that wanted this information
 as close as possible to the destruction event
 could poll the `WeakRef` frequently
-while allocating and freeing large amounts of memory
-to force GC.
+while allocating engaging in activity
+that triggers GC.
 
-There would be any new capability granted
-by allowing delivering this event *eventually*.
 It's unclear that there would be any now capability granted
 by delivering this event *promptly*
-if the observer can actively cause GC.
+if the observer is willing to behave in a way
+that triggers GC.
 
 **Question**: Is there a specific problem or attack
-that is behind this concern
-or is it just the normal cross-origin isolation?
+that is enabled by delivering the event in a timely manner?
 
 #### Exposing garbage collection
 
@@ -122,10 +123,10 @@ the timing of the event reveals the occurrence of GC.
 Polling `WeakRef`s already seems to give this ability.
 This would potentially give it cross-origin
 but that would only be the case
-if the port was closed by become dereferenced.
+if the port was closed by becoming unreferenced.
 The listener cannot know whether the port was
 explicitly closed,
-dereferenced
+last reference was dropped
 or if the owning document has been destroyed.
 Is it simply that exposing GC
 is something to be avoided when possible?
