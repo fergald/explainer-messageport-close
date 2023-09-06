@@ -47,6 +47,9 @@ Waiting for some time and assuming that the other side is gone
 may be OK for some uses
 but there are other uses where a port may have a long lifetime
 or a lifetime/usage that is dependent on user actions.
+Freeing resources prematurely would be a problem there.
+So a timeout based approach does not work
+for the general case.
 
 #### WeakRefs
 
@@ -59,19 +62,24 @@ the local `MessagePort` object becomes eligible for garbage collection (**GC**).
 So, periodically checking the `WeakRef` and
 freeing resources only if it `deref()`s to `null`
 will avoid resource issues
-without ever incorrectly freeing resources.
+without ever prematurely freeing resources.
 
-#### Lifecycle events
+#### Lifecycle events and WeakRefs
 
 Relying entirely on GC
 may result in an arbitrarily long delay.
-One option is to have the other side
-communicate its lifecycle state,
+Adding some communication of lifecycle state can help.
+Having the other side communicate its lifecycle state,
 e.g. by sending a message when the document is being destroyed
-or navigated away from.
-This could be done in a `pagehide` event handler.
-This cannot cover the case where the other side crashes
-or enters BFCache and is destroyed without being restored.
+or navigated away from,
+would allow earlier cleanup.
+This could be done in a `pagehide` event handler
+when the event's `persisted` field is `false`.
+The cases where the other side
+- crashes
+- enters BFCache and is destroyed without being restored
+- fails to communicate
+are covered by GC.
 
 ### Concerns
 
