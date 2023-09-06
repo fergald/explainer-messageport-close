@@ -81,7 +81,7 @@ In the [issue](https://github.com/whatwg/html/issues/1766) there are 2 main conc
 
 By passing a `MessagePort` to a cross-origin document
 and listening to the `close` event,
-it is possible to to find out when that document has been destroyed.
+it is possible to find out when that document has been destroyed.
 This can be done with without the cooperation of the document in question.
 
 Given that this information is already available
@@ -111,7 +111,7 @@ in reaction to a port becoming GCed,
 the timing of the event reveals the occurrence of GC.
 
 **Question**: Why is this a concern?
-Polling `WeakRefs` already seems to give this ability.
+Polling `WeakRef`s already seems to give this ability.
 This would potentially give it cross-origin
 but that would only be the case
 if the port was closed by become dereferenced.
@@ -132,7 +132,7 @@ The best that can be achieved is
 timeliness in many cases
 by reacting to lifecycle state changes
 and reliability in the remaining cases
-by depending on GC via `WeakRefs`.
+by depending on GC via `WeakRef`s.
 
 By using all of these,
 a comprehensive solution is actually possible
