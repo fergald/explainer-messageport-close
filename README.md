@@ -19,12 +19,12 @@ or becomes unreferenced
 ### MessagePorts
 
 The [`MessageChannel` API](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel) provides access to a pair of "entangled" ports.
-[`MessagePort`s](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort).
+[`MessagePort`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort)s.
 A `MessagePort` can send/receive messages with its entangled port.
 They can be passed to other frames,
 including cross-origin frames.
 Either of both ports in an entangled pair
-can end owned by documents that have no knowledge of each-other.
+can end up owned by documents that have no knowledge of each-other.
 
 ### Resource management is difficult
 
@@ -32,7 +32,7 @@ It may be that one holder of a `MessagePort` is holding resources
 that are associated with it.
 These resources should be freed
 when the port is no longer useful.
-There is no explicit signal availanle
+There is no explicit signal available
 as to when that has happened.
 
 ### Existing strategies for detecting when the port has closed
@@ -210,4 +210,4 @@ this accepts that and provides an ergonomic solution.
 
 TODO(fergald): extract the other proposals from the issue.
 I believe they are all trying to avoid exposing information
-that is already exposed .
+that is already exposed.
