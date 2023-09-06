@@ -219,6 +219,29 @@ this accepts that and provides an ergonomic solution.
 
 ## Alternatives considered
 
-TODO(fergald): extract the other proposals from the issue.
-I believe they are all trying to avoid exposing information
-that is already exposed.
+### Alternative timings
+
+If we only send the event
+on an explicit `close()`
+or when the document owning the object is destroyed
+then we avoid exposing GC timing.
+If we do this without also changing the entanglement timing
+then `WeakRef` can still be used to observe GC timing.
+Changing when entanglement ends is doable
+but currently it ends as soon as possible in all cases.
+This would add some complication.
+It would also indefinitely extend to the entangled lifetime of some `MessagePorts`
+(those that currently end via GC).
+
+### Require action by the receive of the MessagePort
+
+To avoid exposing the information
+about navigations occurring in cross-origin frames,
+the `close` event would not be sent
+unless the owning document took some explicit action
+after receiving the `MessagePort` via `postMessage`.
+Suggested [here](https://github.com/whatwg/html/issues/1766#issuecomment-960328593)
+
+Given that `WeakRef`s inevitably expose
+the disentanglement of `MessagePort`s already,
+it does not seem useful to try to hide that.
