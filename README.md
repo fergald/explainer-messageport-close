@@ -171,8 +171,10 @@ is the timing of the event firing.
 
 Implementation-wise it seems simplest
 to fire the `close` event on a port
-when that port stops being entangled with the other port.
-The following cases follow that pattern.
+when that port stops being "entangled" with the other port
+(as specified [here](https://html.spec.whatwg.org/multipage/web-messaging.html))
+
+The implications are discussed for each case.
 
 ### `close()` is called
 
@@ -186,7 +188,8 @@ and it reveals nothing about GC.
 In this case,
 from an implementation point of view,
 it is possible to fire the event
-on entangled port immediately.
+on entangled port immediately
+(subject to inter-process delays).
 
 ### Owning Document is Destroyed
 
@@ -208,7 +211,6 @@ we can fire the `close` event on the entangled port.
 The choices above do not always avoid the concerns listed above
 however it does not seem to be possible to avoid them fully.
 In particular,
-without e.g. adding random delays,
 it seems impossible to avoid exposing
 the timing of GC or navigation
 in some cases.
