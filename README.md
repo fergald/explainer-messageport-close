@@ -245,3 +245,47 @@ Suggested [here](https://github.com/whatwg/html/issues/1766#issuecomment-9603285
 Given that `WeakRef`s inevitably expose
 the disentanglement of `MessagePort`s already,
 it does not seem useful to try to hide that.
+
+## TAG Security & Privacy Questionnaire Answers
+
+* **Author:** murakinonoka@google.com
+* **Questionnaire Source:** https://www.w3.org/TR/security-privacy-questionnaire/#questions
+
+### Questions
+
+* **What information might this feature expose to Web sites or other parties, and for what purposes is that exposure necessary?**
+  * This feature exposes that cross-navigation’s destruction or garbage collection has occurred. By passing a  MessagePort to a document and listening to a close event, it is possible to find out when the document has been destroyed or the port has been garbage collected. However, this information is already exposed by polling WeakRef frequently and the close event enables this information to be exposed more timely and reliably. In addition to that, the listener cannot know if the close event is caused by document destruction/explicit close/just general GC due to being unreferenced.
+* **Do features  in your specification expose the minimum amount of information necessary to enable their intended uses?**
+  * Yes. Close event needs to be fired when a port is disentangled, so the information of garbage collection or a document’s destruction is exposed more timely and reliably.
+* **How do the features in your specification deal with personal information, personally-identifiable information (PII), or information derived from them?**
+  * This proposal does not deal with PII.
+* **How do the features in your specification deal with sensitive information?**
+  * The response to this questions is the same as above.
+* **Do the features in your specification introduce new state for an origin that persists across browsing sessions?**
+  * No.
+* **Do the features in your specification expose information about the underlying platform to origins?**
+  * It exposes timing when the document has been destroyed. This information is already accessible by WeakRef. Right now a page that wanted this information as close as possible to the destruction event could poll the WeakRef frequently while allocating engaging in activity that triggers GC. By introducing the close event, this information will be delivered promptly. However, the listener cannot know if the close event is caused by document destruction/explicit close/just general GC due to being unreferenced.
+* **Does this specification allow an origin to send data to the underlying platform?**
+  * None.
+* **Do features in this specification enable access to device sensors?**
+  * No.
+* **Do features in this specification enable new script execution/loading mechanisms?**
+  * No.
+* **Do features in this specification allow an origin to access other devices?**
+  * No.
+* **Do features in this specification allow an origin some measure of control over a user agent’s native UI?**
+  * No.
+* **What temporary identifiers do the features in this specification create or expose to the web?**
+  * None - no new identifiers are created or exposed.
+* **How does this specification distinguish between behavior in first-party and third-party contexts?**
+  * No.
+* **How do the features in this specification work in the context of a browser’s Private Browsing or Incognito mode?**
+  * No differently.
+* **Does this specification have both "Security Considerations" and "Privacy Considerations" sections?**
+  * Yes.
+* **Do features in your specification enable origins to downgrade default security protections?**
+  * No.
+* **How does your feature handle non-"fully active" documents?**
+  * When a user navigates away from a document and the document is destroyed, this close event is fired. It doesn't fire if the document doesn't get destroyed on navigation and instead kept around as non-fully active/BFCached.
+* **What should this questionnaire have asked?**
+  * Nothing to add.
