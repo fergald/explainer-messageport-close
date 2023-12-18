@@ -254,7 +254,19 @@ it does not seem useful to try to hide that.
 ### Questions
 
 * **What information might this feature expose to Web sites or other parties, and for what purposes is that exposure necessary?**
-  * This feature exposes that cross-navigation’s destruction or garbage collection has occurred. By passing a  MessagePort to a document and listening to a close event, it is possible to find out when the document has been destroyed or the port has been garbage collected. However, this information is already exposed by polling WeakRef frequently and the close event enables this information to be exposed more timely and reliably. In addition to that, the listener cannot know if the close event is caused by document destruction/explicit close/just general GC due to being unreferenced.
+  * This feature exposes that cross-navigation’s destruction
+   or garbage collection has occurred.
+   By passing a  MessagePort to a document and listening to a close event,
+   it is possible to find out
+   when the document has been destroyed
+   or the port has been garbage collected.
+   However, this information is already exposed
+   by polling WeakRef frequently
+   and the `close` event enables this information
+   to be exposed more timely and reliably.
+   In addition to that,
+   the listener cannot know if the close event is caused
+   by document destruction/explicit close/just general GC due to being unreferenced.
 * **Do features  in your specification expose the minimum amount of information necessary to enable their intended uses?**
   * Yes. Close event needs to be fired when a port is disentangled, so the information of garbage collection or a document’s destruction is exposed more timely and reliably.
 * **How do the features in your specification deal with personal information, personally-identifiable information (PII), or information derived from them?**
