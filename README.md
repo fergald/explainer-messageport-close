@@ -268,7 +268,12 @@ it does not seem useful to try to hide that.
    the listener cannot know if the close event is caused
    by document destruction/explicit close/just general GC due to being unreferenced.
 * **Do features  in your specification expose the minimum amount of information necessary to enable their intended uses?**
-  * Yes. Close event needs to be fired when a port is disentangled, so the information of garbage collection or a document’s destruction is exposed more timely and reliably.
+  * Yes. Close event needs to be fired
+   when a port is disentangled,
+   so the information of garbage collection
+   or a document’s destruction
+   is exposed
+   more timely and reliably.
 * **How do the features in your specification deal with personal information, personally-identifiable information (PII), or information derived from them?**
   * This proposal does not deal with PII.
 * **How do the features in your specification deal with sensitive information?**
@@ -276,7 +281,20 @@ it does not seem useful to try to hide that.
 * **Do the features in your specification introduce new state for an origin that persists across browsing sessions?**
   * No.
 * **Do the features in your specification expose information about the underlying platform to origins?**
-  * It exposes timing when the document has been destroyed. This information is already accessible by WeakRef. Right now a page that wanted this information as close as possible to the destruction event could poll the WeakRef frequently while allocating engaging in activity that triggers GC. By introducing the close event, this information will be delivered promptly. However, the listener cannot know if the close event is caused by document destruction/explicit close/just general GC due to being unreferenced.
+  * It exposes timing
+   when the document has been destroyed.
+   This information is already accessible
+   by `WeakRef`.
+   Right now a page that wanted this information
+   as close as possible to the destruction event
+   could poll the WeakRef frequently
+   while allocating engaging in activity
+   that triggers GC.
+   By introducing the close event,
+   this information will be delivered promptly.
+   However, the listener cannot know
+   if the close event is caused
+   by document destruction/explicit close/just general GC due to being unreferenced.
 * **Does this specification allow an origin to send data to the underlying platform?**
   * None.
 * **Do features in this specification enable access to device sensors?**
@@ -298,6 +316,11 @@ it does not seem useful to try to hide that.
 * **Do features in your specification enable origins to downgrade default security protections?**
   * No.
 * **How does your feature handle non-"fully active" documents?**
-  * When a user navigates away from a document and the document is destroyed, this close event is fired. It doesn't fire if the document doesn't get destroyed on navigation and instead kept around as non-fully active/BFCached.
+  * When a user navigates away from a document
+   and the document is destroyed,
+   this close event is fired.
+   It doesn't fire
+   if the document doesn't get destroyed on navigation
+   and instead kept around as non-fully active/BFCached.
 * **What should this questionnaire have asked?**
   * Nothing to add.
