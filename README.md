@@ -301,7 +301,7 @@ it does not seem useful to try to hide that.
   * No.
 * **How does your feature handle non-"fully active" documents?**
   * If the document doesn't get destroyed on navigation
-   and instead is kept aound non-fully acive/BFCached
+   and instead is kept around non-fully active/BFCached
    it will not fire.
    It will fire if the document is discarded while non-fully active.
 * **What should this questionnaire have asked?**
