@@ -155,10 +155,11 @@ when an entangled `MessagePort` is closed.
 Given a pair of entangled ports, `portA` and `portB`,
 if `portA` is closed,
 the event is fired on `portB`.
-this `close` event is used as follows:
+This `close` event is used as follows:
 ```
 portB.onclose = () => {
-    console.log("portA has been closed.");
+  console.log("portA has been closed.");
+  // Free up resources associated with the port.
 }
 ```
 
