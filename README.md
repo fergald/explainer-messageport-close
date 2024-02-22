@@ -121,6 +121,8 @@ as close as possible to the destruction event
 could poll the `WeakRef` frequently
 while allocating engaging in activity
 that triggers GC.
+A demo of this is [here](https://message-port-weakref-forced-gc-learning.glitch.me/)
+([source](https://glitch.com/edit/#!/message-port-weakref-forced-gc-learning?path=index.html%3A72%3A0)).
 
 It's unclear that there would be any now capability granted
 by delivering this event *promptly*
